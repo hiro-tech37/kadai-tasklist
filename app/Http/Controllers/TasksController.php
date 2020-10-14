@@ -17,7 +17,10 @@ class TasksController extends Controller
     {
         //view
         
-          
+        $tasks = Task::all();
+        
+        return view('tasks.index',['tasks'=>$tasks]);
+         
     }
 
     /**
@@ -28,6 +31,10 @@ class TasksController extends Controller
     public function create()
     {
         //新規作成view
+        
+        $task = new Task;
+        
+        return view('tasks.create',['task'=>$task]);
     }
 
     /**
@@ -39,6 +46,11 @@ class TasksController extends Controller
     public function store(Request $request)
     {
         //新規作成createの処理
+        $task = new Task;
+        $task->content = $request->content;
+        $task->save();
+        
+        return redirect('/');
     }
 
     /**
@@ -50,6 +62,9 @@ class TasksController extends Controller
     public function show($id)
     {
         //個別詳細view
+        $task = Task::findOrFail($id);
+        
+        return view('tasks.show',['task'=>$task]);
     }
 
     /**
@@ -61,6 +76,9 @@ class TasksController extends Controller
     public function edit($id)
     {
         //編集view
+        $task = Task::findOrFail($id);
+        
+        return view('tasks.edit',['task'=>$task]);
     }
 
     /**
@@ -73,6 +91,13 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         //編集editの処理
+        $task = Task::findOrFail($id);
+        $task->content=$request->content;
+        $task->save();
+        
+        return redirect('/');
+        
+        
     }
 
     /**
@@ -84,5 +109,9 @@ class TasksController extends Controller
     public function destroy($id)
     {
         //削除btn
+        $task = Task::findOrFail($id);
+        $task->delete();
+        
+        return redirect('/');
     }
 }
