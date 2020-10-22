@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->bigIncrements('id');
             $table->string('content'); //追加
             $table->timestamps();
+            
         });
     }
 

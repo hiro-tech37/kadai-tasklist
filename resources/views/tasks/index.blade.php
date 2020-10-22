@@ -1,8 +1,5 @@
-@extends('layouts.app')
 
-@section('content')
 
-<!--------------->
 @if (count($tasks) > 0)
         <table class="table table-striped">
             <thead>
@@ -22,11 +19,9 @@
                 @endforeach
             </tbody>
         </table>
+    {{-- ページネーションのリンク --}}
+    {{ $tasks->links() }}
     @endif
     
     {{--create新規作成へのリンク--}}
     {!! link_to_route('tasks.create','新規タスク投稿',[],['class'=>'btn btn-primary']) !!}
-
-<!--------------->
-
-@endsection
